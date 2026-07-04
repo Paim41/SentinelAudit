@@ -9,4 +9,5 @@ reportlab==4.2.2
 Werkzeug==3.0.3
 email_validator==2.2.0
 chardet==5.2.0
+psycopg2-binary==2.9.9
 pytest==8.2.2
