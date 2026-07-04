@@ -1,33 +1,81 @@
+<div align="center">
+
 # Sentinel Audit
 
-Sentinel Audit is a Python and Flask web application for authorised educational web security auditing. It performs limited, non-destructive configuration checks against a single submitted page and presents results in a polished charcoal, lime, and soft-gray dashboard.
+**Authorised, educational web security auditing — in one clean dashboard.**
+Submit a URL. Get a non-destructive scan of HTTPS/TLS, headers, cookies, and CSRF gaps — scored, explained, and exportable.
 
-Sentinel Audit performs limited, non-destructive configuration checks. It is not a replacement for a professional penetration test, compliance audit, or manual security assessment.
+[![Live Demo](https://img.shields.io/badge/RUN%20A%20SCAN-Live%20Demo-b7ff3c?style=for-the-badge&logo=vercel&logoColor=0f1113)](https://www.sentinelaudit.my/)
+[![Type](https://img.shields.io/badge/Type-Security%20Auditing-22272b?style=for-the-badge&logoColor=b7ff3c)](https://www.sentinelaudit.my/)
+[![Scans](https://img.shields.io/badge/Scans-Non--Destructive-22272b?style=for-the-badge)](https://www.sentinelaudit.my/)
+[![Stack](https://img.shields.io/badge/Built%20With-Flask%20%2F%20Python-22272b?style=for-the-badge&logo=python&logoColor=b7ff3c)](https://www.sentinelaudit.my/)
+</div>
+
+---
+
+## About
+
+Sentinel Audit is a Python/Flask web app for running **authorised, educational** security configuration checks against a single URL — no exploitation, no payloads, no brute force. Just a clear, transparent read on how a site is configured.
+
+> ⚠️ This performs limited, non-destructive configuration checks only. It is **not** a replacement for a professional penetration test, compliance audit, or manual security assessment.
+
+---
+
+## Scan Flow
+
+```
+Submit URL
+    ↓
+Safety Checks    →  SSRF guard, redirect revalidation, size/time limits
+    ↓
+Scanning         →  HTTPS/TLS, headers, cookies, forms, CSRF, disclosure
+    ↓
+Scoring          →  0–100 educational score + risk level
+    ↓
+Dashboard        →  Findings, history, comparison, charts
+    ↓
+Export           →  Printable HTML report or PDF
+```
+
+---
 
 ## Features
 
-- User registration, login, logout, password hashing, CSRF protection, and protected routes.
-- Safe URL validation with SSRF protections, redirect revalidation, request timeouts, response-size limits, and optional domain allowlist.
-- Checks for HTTPS usage, HTTP-to-HTTPS redirects, TLS certificate validity and expiry, security headers, cookie attributes, forms, possible missing CSRF tokens, information disclosure headers, mixed-content references, safe public paths, and basic configuration weaknesses.
-- SQLite storage for scans, findings, and scan metrics.
-- Educational 0-100 security score, risk level, scan comparison, printable HTML reports, and ReportLab PDF downloads.
-- Dashboard statistics, recent-scan charts, risk distribution charts, history filters, and responsive mobile layout.
+- **Auth** — registration, login/logout, password hashing, CSRF protection, protected routes
+- **Safe Scanning** — SSRF protections, redirect revalidation, request timeouts, response-size limits, optional domain allowlist
+- **Checks** — HTTPS usage, HTTP→HTTPS redirects, TLS cert validity/expiry, security headers, cookie attributes, forms, missing CSRF tokens, information disclosure, mixed content, misconfigurations
+- **Storage** — SQLite for scans, findings, and metrics
+- **Reporting** — 0–100 score, risk level, scan-to-scan comparison, printable HTML reports, PDF export
+- **Dashboard** — recent-scan and risk-distribution charts, history filters, responsive mobile layout
 
-## Technology Stack
+---
 
-Backend: Python 3.11+, Flask, Flask-SQLAlchemy, Flask-Login, Flask-WTF, WTForms, Requests, BeautifulSoup4, ReportLab, Werkzeug, ssl, socket, ipaddress, urllib.parse, datetime.
+## Built For
 
-Frontend: HTML5, CSS3, vanilla JavaScript, Jinja2 templates, Chart.js, and inline SVG icons only.
+```
+Purpose  → Authorised security education & self-auditing
+Users    → Developers, students, small site owners
+Type     → Web Security Auditing Tool
+Form     → Self-hosted Flask Web App
+```
 
-## Screenshot Placeholders
+---
 
-- Dashboard: add a screenshot after running a few demo scans.
-- New Scan: add a screenshot of the authorised scan form.
-- Results: add a screenshot of the score circle and findings filters.
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Backend | Python 3.11+, Flask, Flask-SQLAlchemy, Flask-Login, Flask-WTF, WTForms |
+| Scanning | Requests, BeautifulSoup4, `ssl`, `socket`, `ipaddress`, `urllib.parse` |
+| Reporting | ReportLab (PDF export) |
+| Frontend | HTML5, CSS3, Vanilla JS, Jinja2, Chart.js |
+| Database | SQLite |
+
+---
 
 ## Project Structure
 
-```text
+```
 sentinel-audit/
 ├── run.py
 ├── config.py
@@ -46,9 +94,12 @@ sentinel-audit/
 └── tests/
 ```
 
-## Installation on Windows
+---
 
-```powershell
+## Getting Started
+
+### Windows
+```bash
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
@@ -56,8 +107,7 @@ copy .env.example .env
 python run.py
 ```
 
-## Installation on macOS and Linux
-
+### macOS / Linux
 ```bash
 python3 -m venv venv
 source venv/bin/activate
@@ -66,61 +116,85 @@ cp .env.example .env
 python run.py
 ```
 
-Open the application at:
+Then open **http://127.0.0.1:5000**
 
-```text
-http://127.0.0.1:5000
-```
-
-The SQLite database is created automatically on first startup. You can add demonstration scan history with:
-
+Seed demo data:
 ```bash
 flask --app run.py seed-demo
 ```
 
-Demo account after seeding:
-
-```text
-Email: demo@sentinel.local
+Demo login:
+```
+Email:    demo@sentinel.local
 Password: ChangeMe12345
 ```
 
-## Environment Configuration
+---
 
-Copy `.env.example` to `.env` and update `SECRET_KEY`. Important settings:
+## Configuration
 
-- `ALLOW_LOCAL_TARGETS=true` allows localhost and private IP targets for isolated educational laboratories.
-- `ALLOW_LOCAL_TARGETS=false` blocks localhost, private, link-local, multicast, reserved, unspecified, and cloud metadata addresses.
-- `ALLOWED_DOMAINS=` can contain comma-separated domains. When set, only those domains and their subdomains may be scanned.
-- `MAX_REDIRECTS=3` limits redirect following and every redirect destination is revalidated.
-- `MAX_RESPONSE_BYTES=2097152` prevents large downloads.
+Copy `.env.example` to `.env` and set a real `SECRET_KEY`.
 
-## Running Tests
+| Variable | Description |
+|---|---|
+| `ALLOW_LOCAL_TARGETS` | `true` allows localhost/private IP targets (lab use); `false` blocks localhost, private, link-local, multicast, reserved, and metadata addresses |
+| `ALLOWED_DOMAINS` | Comma-separated allowlist — when set, only these domains (and subdomains) may be scanned |
+| `MAX_REDIRECTS` | Redirect-following limit; every hop revalidated. Default `3` |
+| `MAX_RESPONSE_BYTES` | Caps response size. Default `2097152` |
+
+---
+
+## Safe Testing Targets
+
+Only scan:
+- Websites you own
+- Local development sites
+- Deliberately vulnerable training apps
+- Isolated lab systems
+- Systems you have written permission to test
+
+---
+
+## Security Limitations
+
+Sentinel Audit does **not** perform exploitation, payload injection, auth bypass, credential/brute-force attacks, port scanning, network discovery, directory brute-forcing, data exfiltration, command execution, or denial-of-service activity. The score is an educational assessment, not a certification or proof of compliance.
+
+---
+
+## Tests
 
 ```bash
 pytest
 ```
 
-## Safe Testing Targets
-
-Use Sentinel Audit only against:
-
-- Websites you own.
-- Local development websites.
-- Deliberately vulnerable training applications.
-- Isolated laboratory systems.
-- Systems with written testing permission.
-
-## Security Limitations
-
-Sentinel Audit does not perform exploitation, payload injection, authentication bypass, password attacks, credential testing, brute-force attempts, port scanning, network discovery, directory brute-forcing, custom wordlists, data exfiltration, command execution, malware behavior, destructive requests, or denial-of-service activity.
-
-The score is a transparent educational assessment, not an official certification or proof of compliance.
+---
 
 ## Troubleshooting
 
-- If a local target is blocked, set `ALLOW_LOCAL_TARGETS=true` in `.env` for lab-only use.
-- If scans fail with DNS errors, verify the hostname resolves from your machine.
-- If PDF downloads fail, confirm the `reports/` directory is writable.
-- If Chart.js does not load, confirm the machine can reach `cdn.jsdelivr.net`.
-- If registration email validation fails, reinstall dependencies with `pip install -r requirements.txt`.
+| Issue | Fix |
+|---|---|
+| Local target blocked | Set `ALLOW_LOCAL_TARGETS=true` in `.env` (lab use only) |
+| DNS errors during scan | Confirm the hostname resolves from your machine |
+| PDF download fails | Confirm the `reports/` directory is writable |
+| Charts don't load | Confirm the machine can reach `cdn.jsdelivr.net` |
+| Registration/email validation fails | Reinstall dependencies with `pip install -r requirements.txt` |
+
+---
+
+## Roadmap / Ideas
+
+- [ ] Scheduled recurring scans
+- [ ] Multi-URL / bulk scanning
+- [ ] Exportable JSON API for findings
+- [ ] Team/organisation accounts
+- [ ] Additional checks (CSP analysis, subresource integrity, DNS/email security records)
+
+---
+
+<div align="center">
+
+*Scan responsibly.*
+
+[sentinelaudit.my](https://www.sentinelaudit.my/)
+
+</div>
