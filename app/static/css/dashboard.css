@@ -24,7 +24,25 @@
   line-height: 1;
 }
 .stat-card span { color: var(--soft-gray-200); }
-.chart-panel canvas { width: 100%; min-height: 280px; }
+.chart-panel {
+  min-height: 360px;
+}
+.chart-panel canvas {
+  width: 100% !important;
+  height: 280px !important;
+  max-height: 280px !important;
+  display: block;
+}
+.empty-chart-state {
+  height: 280px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--soft-gray-400);
+  border: 1px dashed rgba(217, 220, 223, 0.16);
+  border-radius: 14px;
+  background: rgba(15, 17, 19, 0.34);
+}
 .overview-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

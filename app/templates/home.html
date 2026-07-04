@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% import "components/svg_macros.html" as icons %}
+{% block auth_content %}
+<section class="home-shell">
+  <nav class="home-nav" aria-label="Public navigation">
+    <a class="home-brand" href="{{ url_for('dashboard.root') }}">
+      <img src="{{ url_for('static', filename='img/sentinel-audit-favicon.png') }}" alt="" aria-hidden="true">
+      <span>Sentinel Audit</span>
+    </a>
+    <div class="home-nav-actions">
+      <a class="button button-secondary" href="{{ url_for('auth.login') }}">Login</a>
+      <a class="button button-primary" href="{{ url_for('auth.register') }}">Register</a>
+    </div>
+  </nav>
+
+  <section class="home-hero">
+    <div class="home-copy">
+      <span class="section-label">Authorised educational testing</span>
+      <img class="home-logo" src="{{ url_for('static', filename='img/sentinel-audit-logo.png') }}" alt="Sentinel Audit">
+      <h1>Web security audits with clear, non-destructive findings.</h1>
+      <p>Check HTTPS, TLS, headers, cookies, forms, mixed content, exposed public paths, and score changes from a focused dashboard.</p>
+      <div class="home-actions">
+        <a class="button button-primary" href="{{ url_for('auth.register') }}">{{ icons.icon('user') }} Create Account</a>
+        <a class="button button-secondary" href="{{ url_for('auth.login') }}">{{ icons.icon('lock') }} Sign In</a>
+      </div>
+      <p class="home-disclaimer">Sentinel Audit is for websites you own or have explicit permission to test.</p>
+    </div>
+    <div class="home-panel glass-panel">
+      <span class="section-label">What it checks</span>
+      <ul class="home-checks">
+        <li>{{ icons.icon('lock') }} HTTPS and TLS certificate posture</li>
+        <li>{{ icons.icon('server') }} Security headers and disclosure signals</li>
+        <li>{{ icons.icon('cookie') }} Cookie security attributes</li>
+        <li>{{ icons.icon('form') }} Form transport and possible CSRF gaps</li>
+        <li>{{ icons.icon('report') }} Printable HTML and PDF reporting</li>
+      </ul>
+    </div>
+  </section>
+</section>
+{% endblock %}

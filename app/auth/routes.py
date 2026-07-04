@@ -32,7 +32,7 @@ def register():
             db.session.commit()
             flash("Your account has been created. Please sign in.", "success")
             return redirect(url_for("auth.login"))
-    return render_template("auth/register.html", form=form, title="Register")
+    return render_template("auth/register.html", form=form, title="Register", body_class="auth-page")
 
 
 @auth_bp.route("/login", methods=["GET", "POST"])
@@ -49,7 +49,7 @@ def login():
             next_url = request.args.get("next")
             return redirect(next_url or url_for("dashboard.index"))
         flash("Invalid email, username, or password.", "danger")
-    return render_template("auth/login.html", form=form, title="Login")
+    return render_template("auth/login.html", form=form, title="Login", body_class="auth-page")
 
 
 @auth_bp.route("/logout")

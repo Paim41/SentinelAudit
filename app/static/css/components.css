@@ -1,8 +1,9 @@
 .panel, .hero-panel, .stat-card, .summary-grid article {
-  background: rgba(27, 31, 34, 0.82);
-  border: 1px solid var(--border);
+  background: rgba(27, 31, 34, 0.56);
+  border: 1px solid rgba(217, 220, 223, 0.14);
   border-radius: 18px;
   box-shadow: var(--shadow);
+  backdrop-filter: blur(18px) saturate(140%);
 }
 .panel { padding: 1.25rem; }
 .panel:hover, .stat-card:hover { border-color: rgba(183, 255, 60, 0.38); }
@@ -54,7 +55,7 @@
   padding: 0.72rem 0.82rem;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background: var(--charcoal-950);
+  background: rgba(15, 17, 19, 0.62);
   color: var(--soft-gray-100);
 }
 label { display: grid; gap: 0.15rem; color: var(--soft-gray-200); margin-bottom: 0.95rem; }
@@ -68,9 +69,10 @@ label { display: grid; gap: 0.15rem; color: var(--soft-gray-200); margin-bottom:
   gap: 0.6rem;
   padding: 0.8rem 1rem;
   border-radius: 12px;
-  background: var(--charcoal-800);
-  border: 1px solid var(--border);
+  background: rgba(34, 39, 43, 0.76);
+  border: 1px solid rgba(217, 220, 223, 0.16);
   box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
 }
 .flash-success { color: var(--success); }
 .flash-danger { color: var(--danger); }
@@ -110,8 +112,9 @@ th { color: var(--soft-gray-100); font-size: 0.78rem; text-transform: uppercase;
 .modal-panel {
   width: min(460px, 100%);
   padding: 1.4rem;
-  background: var(--charcoal-850);
-  border: 1px solid var(--border);
+  background: rgba(27, 31, 34, 0.74);
+  border: 1px solid rgba(217, 220, 223, 0.16);
   border-radius: 18px;
+  backdrop-filter: blur(18px);
 }
 .modal-actions { display: flex; justify-content: flex-end; gap: 0.75rem; }

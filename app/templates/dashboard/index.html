@@ -23,11 +23,19 @@
 <section class="dashboard-grid">
   <article class="panel chart-panel">
     <div class="panel-heading"><span class="section-label">Recent scores</span><h3>Security Score Trend</h3></div>
+    {% if score_values %}
     <canvas id="scoreChart" data-labels='{{ score_labels|tojson }}' data-values='{{ score_values|tojson }}'></canvas>
+    {% else %}
+    <div class="empty-chart-state">No score history yet. Run a scan to start the trend.</div>
+    {% endif %}
   </article>
   <article class="panel chart-panel">
     <div class="panel-heading"><span class="section-label">Findings</span><h3>Risk Distribution</h3></div>
+    {% if risk_counts.values()|sum %}
     <canvas id="riskChart" data-values='{{ risk_counts|tojson }}'></canvas>
+    {% else %}
+    <div class="empty-chart-state">No findings recorded yet.</div>
+    {% endif %}
   </article>
 </section>
 

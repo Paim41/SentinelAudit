@@ -1,18 +1,46 @@
 {% extends "base.html" %}
-{% import "components/svg_macros.html" as icons %}
 {% block auth_content %}
 <section class="auth-card wide">
-  <div class="auth-brand">{{ icons.icon('shield', 34) }}<span><strong>Sentinel Audit</strong><small>Web Security Auditor</small></span></div>
-  <h1>Create account</h1>
-  <p>Use Sentinel Audit only for websites you own or are authorised to test.</p>
-  <form method="post" novalidate>
+  <a class="auth-brand" href="{{ url_for('dashboard.root') }}">
+    <img src="{{ url_for('static', filename='img/sentinel-audit-favicon.png') }}" alt="" aria-hidden="true">
+    <span><strong>Sentinel Audit</strong><small>Web Security Auditor</small></span>
+  </a>
+  <div class="auth-heading">
+    <h1>Create account</h1>
+    <p>Use Sentinel Audit only for websites you own or are authorised to test.</p>
+  </div>
+  <form method="post" class="auth-form" data-auth-form>
     {{ form.hidden_tag() }}
     <div class="form-grid two">
-      <label>{{ form.full_name.label }}{{ form.full_name(class="input", autocomplete="name") }}</label>
-      <label>{{ form.username.label }}{{ form.username(class="input", autocomplete="username") }}</label>
-      <label>{{ form.email.label }}{{ form.email(class="input", autocomplete="email") }}</label>
-      <label>{{ form.password.label }}{{ form.password(class="input", autocomplete="new-password") }}</label>
-      <label>{{ form.confirm_password.label }}{{ form.confirm_password(class="input", autocomplete="new-password") }}</label>
+      <div class="field-group">
+        {{ form.full_name.label }}{{ form.full_name(class="input", autocomplete="name", required=true, minlength="2") }}
+        {% for error in form.full_name.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+      </div>
+      <div class="field-group">
+        {{ form.username.label }}{{ form.username(class="input", autocomplete="username", required=true, minlength="3") }}
+        {% for error in form.username.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+      </div>
+      <div class="field-group">
+        {{ form.email.label }}{{ form.email(class="input", autocomplete="email", required=true, type="email") }}
+        {% for error in form.email.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+      </div>
+      <div class="field-group">
+        {{ form.password.label }}
+        <div class="password-wrap">
+          {{ form.password(class="input", autocomplete="new-password", required=true, minlength="10") }}
+          <button type="button" class="password-toggle" data-password-toggle aria-label="Show password">Show</button>
+        </div>
+        {% for error in form.password.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        <p class="field-hint">Use at least 10 characters.</p>
+      </div>
+      <div class="field-group">
+        {{ form.confirm_password.label }}
+        <div class="password-wrap">
+          {{ form.confirm_password(class="input", autocomplete="new-password", required=true, minlength="10") }}
+          <button type="button" class="password-toggle" data-password-toggle aria-label="Show password">Show</button>
+        </div>
+        {% for error in form.confirm_password.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+      </div>
     </div>
     {{ form.submit(class="button button-primary full") }}
   </form>

@@ -3,9 +3,11 @@
   inset: 0 auto 0 0;
   width: 280px;
   padding: 1.4rem;
-  background: rgba(21, 24, 27, 0.96);
-  border-right: 1px solid var(--border);
+  background: rgba(21, 24, 27, 0.64);
+  border-right: 1px solid rgba(217, 220, 223, 0.14);
+  backdrop-filter: blur(22px) saturate(140%);
   z-index: 30;
+  transition: width .22s ease, transform .25s ease, padding .22s ease;
 }
 .sidebar-brand {
   display: flex;
@@ -24,7 +26,9 @@
   color: var(--lime-primary);
   border-radius: 14px;
   box-shadow: 0 0 24px var(--lime-muted);
+  overflow: hidden;
 }
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; }
 .sidebar-brand strong { display: block; color: var(--soft-gray-100); font-size: 1.25rem; }
 .sidebar-brand small { display: block; margin-top: 0.12rem; }
 .sidebar-nav { display: grid; gap: 0.4rem; }
@@ -44,7 +48,29 @@
   background: var(--lime-muted);
   border-left-color: var(--lime-primary);
 }
-.app-main { margin-left: 280px; min-height: 100vh; }
+.app-main { margin-left: 280px; min-height: 100vh; transition: margin-left .22s ease; }
+.nav-collapsed .sidebar {
+  width: 84px;
+  padding: 1rem 0.75rem;
+}
+.nav-collapsed .sidebar-brand span:last-child,
+.nav-collapsed .sidebar-nav a {
+  font-size: 0;
+}
+.nav-collapsed .sidebar-brand {
+  justify-content: center;
+}
+.nav-collapsed .sidebar-nav a {
+  justify-content: center;
+  padding-inline: 0.65rem;
+}
+.nav-collapsed .sidebar-nav a .svg-icon {
+  width: 22px;
+  height: 22px;
+}
+.nav-collapsed .app-main {
+  margin-left: 84px;
+}
 .topbar {
   min-height: 92px;
   display: flex;
@@ -53,11 +79,17 @@
   gap: 1rem;
   padding: 1.15rem 2rem;
   border-bottom: 1px solid var(--border);
-  background: rgba(15, 17, 19, 0.78);
-  backdrop-filter: blur(18px);
+  background: rgba(15, 17, 19, 0.54);
+  backdrop-filter: blur(22px) saturate(140%);
   position: sticky;
   top: 0;
   z-index: 20;
+}
+.topbar-logo {
+  width: min(230px, 26vw);
+  height: 46px;
+  object-fit: contain;
+  opacity: 0.9;
 }
 .content-shell { padding: 2rem; display: grid; gap: 1.6rem; }
 .user-menu { display: flex; align-items: center; gap: 0.65rem; color: var(--soft-gray-200); }
@@ -70,7 +102,7 @@
   border: 1px solid var(--border);
   color: var(--lime-primary);
 }
-.mobile-menu-button { display: none; }
+.mobile-menu-button { display: grid; }
 .sidebar-backdrop { display: none; }
 .dashboard-grid, .scan-layout, .settings-grid {
   display: grid;

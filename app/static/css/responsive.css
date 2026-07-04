@@ -48,6 +48,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .topbar-logo {
+    display: none;
+  }
   .dashboard-grid, .scan-layout, .settings-grid { grid-template-columns: minmax(0, 1fr); }
   .chart-panel canvas { min-height: 250px; }
   .results-header {
@@ -228,6 +231,18 @@
     width: min(300px, 88vw);
     max-width: 88vw;
   }
+  .nav-collapsed .sidebar {
+    width: min(320px, 86vw);
+    max-width: 86vw;
+    padding: 1rem;
+  }
+  .nav-collapsed .sidebar-brand span:last-child,
+  .nav-collapsed .sidebar-nav a {
+    font-size: inherit;
+  }
+  .nav-collapsed .app-main {
+    margin-left: 0;
+  }
   .sidebar-brand strong {
     font-size: 1.08rem;
   }
@@ -286,6 +301,28 @@
     margin-top: 0.75rem;
     padding: 1rem;
     border-radius: 16px;
+  }
+  .home-shell {
+    min-height: auto;
+    gap: 1rem;
+  }
+  .home-nav {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .home-nav-actions,
+  .home-actions,
+  .home-hero {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .home-copy,
+  .home-panel {
+    border-radius: 18px;
+    padding: 1rem;
+  }
+  .home-copy h1 {
+    font-size: 2rem;
   }
   .modal-actions {
     flex-direction: column;
